@@ -11,8 +11,6 @@ class CoursesPage extends React.Component {
     }
   };
 
-  //Arrow functions inherit the binding context of their enclosing scope
-  //Arrow functions don't have this binding, hence this in here reference the class instance
   handleChange = event => {
     const course = { ...this.state.course, title: event.target.value };
     this.setState({ course });
@@ -24,7 +22,6 @@ class CoursesPage extends React.Component {
   };
 
   render() {
-    console.log(this.props.courses);
     return (
       <form onSubmit={this.handleSubmit}>
         <h2>Courses</h2>
@@ -34,7 +31,8 @@ class CoursesPage extends React.Component {
           onChange={this.handleChange}
           value={this.state.course.title}
         />
-        <input type="submit" value="save" />
+
+        <input type="submit" value="Save" />
         {this.props.courses.map(course => (
           <div key={course.title}>{course.title}</div>
         ))}
@@ -44,8 +42,8 @@ class CoursesPage extends React.Component {
 }
 
 CoursesPage.propTypes = {
-  actions: PropTypes.object.isRequired,
-  courses: PropTypes.array.isRequired
+  courses: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -60,5 +58,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-//This is 2 function calls. Connect returns a function and then that function uses CoursePage as parameter and returned
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CoursesPage);
