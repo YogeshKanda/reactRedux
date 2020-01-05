@@ -5,12 +5,8 @@ export function loadAuthorsSuccess(authors) {
   return { type: types.LOAD_AUTHORS_SUCCESS, authors };
 }
 
-export function loadAuthorsFailure(error) {
-  return { type: types.LOAD_AUTHORS_FAILURE, error };
-}
-
 export function loadAuthors() {
-  return dispatch => {
+  return function(dispatch) {
     return authorApi
       .getAuthors()
       .then(authors => {
@@ -18,7 +14,6 @@ export function loadAuthors() {
       })
       .catch(error => {
         throw error;
-        // dispatch(loadAuthorsFailure(error));
       });
   };
 }
